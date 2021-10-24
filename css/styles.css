@@ -17,6 +17,9 @@ body {
     font-family: 'Merriweather', serif;
     color: #fff;
 }
+html {
+    scroll-behavior: smooth;
+}
 
 
 /* Typeography General*/
@@ -48,6 +51,7 @@ p {
 /* ---- Layout Rules ---- */
 main {
     margin: 10vh 1em 10vh;
+    position: relative;
 }
 
 .main-hero {
@@ -58,6 +62,7 @@ main {
 section {
     position: relative;
     min-height: 80vh;
+    padding: 5rem 0;
 }
 
 
@@ -82,7 +87,8 @@ section {
     color: #000;
 }
 
-.navbar__menu .menu__link:hover {
+.navbar__menu .menu__link:hover,
+.navbar__menu .menu__link.active {
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
@@ -95,6 +101,7 @@ section {
     top: 0;
     width: 100%;
     z-index: 5;
+    transition: transform 0.3s ease;
 }
 
 /* Footer Styles */
@@ -193,17 +200,17 @@ section:nth-of-type(3n + 1) .landing__container::after {
 /* ---- Theme State Rules ---- */
 /* Section Active Styles */
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
-section.your-active-class {
+section.isActive {
     background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
 }
 
-section.your-active-class .landing__container::before {
+section.isActive .landing__container::before {
     opacity: 1;
     animation: rotate 4s linear 0s infinite forwards;
 }
 
-section.your-active-class .landing__container::after {
+section.isActive .landing__container::after {
     opacity: 1;
     animation: rotate 5s linear 0s infinite forwards reverse;
 }
@@ -220,4 +227,49 @@ section.your-active-class .landing__container::after {
 		           translate(-1em) 
 		           rotate(-360deg);
 	}
+}
+
+
+/* section button style */
+
+#addSecBtn {
+    position: fixed;
+    top: 1em;
+    left: 1em;
+    font-size: 20px;
+    border-radius: 10px 40px;
+    background: #ff6a14;
+    color: #372902;
+    padding: 0.6em 2em;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.5s ease;
+    user-select: none;
+}
+#addSecBtn:hover {
+    background: #ff9456;
+}
+
+/* go up button style */
+
+.toUpBtn {
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
+    background: #ff6a14;
+    color: #372902;
+    font-size: 24px;
+    padding: 0.5em;
+    border-radius: 10px;
+    cursor: pointer;
+    transform: translateY(-100vh);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+.toUpBtn.show {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
 }
