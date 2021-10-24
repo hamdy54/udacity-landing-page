@@ -63,6 +63,7 @@ section {
     position: relative;
     min-height: 80vh;
     padding: 5rem 0;
+    border-radius: 20px;
 }
 
 
@@ -233,8 +234,8 @@ section.isActive .landing__container::after {
 /* section button style */
 
 #addSecBtn {
-    position: fixed;
-    top: 1em;
+    position: absolute;
+    top: 105%;
     left: 1em;
     font-size: 20px;
     border-radius: 10px 40px;
