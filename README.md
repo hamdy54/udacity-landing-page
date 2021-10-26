@@ -25,6 +25,10 @@ None
 I changed on *HTML* file to add two buttons as **DIV** and Style them in the CSS file which located in the bottom in *CSS* file
 *app.js* JS file fully is written by me
 
+Removing CSS property *scroll-behavior: "smooth"* to make it with javascript using *scrollIntoView()*
+Using getBoundingClientRect() api to know which section is in the viewport
+Adding toggle menu to show menu in full screen to make it more responsive in mobile and tablets
+
 ***You can check what is changed from the commit page in this repo***
 
 ## JS Version

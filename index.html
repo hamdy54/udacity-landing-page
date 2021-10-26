@@ -12,9 +12,14 @@
 <body>
   <!-- HTML Follows BEM naming conventions 
   IDs are only used for sections to connect menu achors to sections -->
+  <!-- icon to show the menu when user show the webpage on mobile or tablet -->
+  <div class="toggle__icon" id="toggleIcon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
   <header class="page__header">
     <nav class="navbar__menu">
-      <div id="addSecBtn">Add Section</div>
       <!-- Navigation starts as empty UL that will be populated with JS -->
       <ul id="navbar__list"></ul>
     </nav>
@@ -22,6 +27,7 @@
   <main>
     <header class="main__hero">
       <h1>Landing Page </h1>
+      <div id="addSecBtn">Add Section</div>
     </header>
     <!-- to up button -->
     <div id="toUp" class="toUpBtn">Up</div>

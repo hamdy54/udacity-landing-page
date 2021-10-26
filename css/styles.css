@@ -17,9 +17,6 @@ body {
     font-family: 'Merriweather', serif;
     color: #fff;
 }
-html {
-    scroll-behavior: smooth;
-}
 
 
 /* Typeography General*/
@@ -94,6 +91,34 @@ section {
     color: #fff;
     transition: ease 0.3s all;
 }
+/* media query to change the nav menu in tablets and mobiles */
+@media only screen and (max-width: 768px) {
+    .page__header {
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+        display: none;
+        z-index: 100;
+    }
+    .page__header.mobile__show {
+        display: block;
+    }
+    .navbar__menu ul {
+        padding-left: 3rem;
+        margin: 0;
+        text-align: right;
+    }
+    .navbar__menu li {
+        display: inline-block;
+    }
+    .navbar__menu .menu__link {
+        display: block;
+        padding: 1em;
+        font-weight: bold;
+        text-decoration: none;
+        color: #000;
+    }
+}
 
 /* Header Styles */
 .page__header {
@@ -103,6 +128,15 @@ section {
     width: 100%;
     z-index: 5;
     transition: transform 0.3s ease;
+}
+/* media query to hide nav if not scroll happen on desktop only */
+@media only screen and (min-width: 768px) {
+    .page__header {
+        transform: translateY(0);
+    }
+    .page__header.hide__nav {
+        transform: translateY(-100%);
+    }
 }
 
 /* Footer Styles */
@@ -231,17 +265,65 @@ section.isActive .landing__container::after {
 }
 
 
+/* toggle icon style */
+.toggle__icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    width: 40px;
+    height: 40px;
+    z-index: 1000;
+    background: #ff6a14;
+    cursor: pointer;
+    display: none;
+}
+/* show this icon only in tablet and mobile devices */
+@media only screen and (max-width: 768px) {
+    .toggle__icon {
+        display: flex;
+    }
+}
+.toggle__icon span {
+    width: 80%;
+    height: 3px;
+    background: #372902;
+    transition: 0.3s ease;
+}
+.toggle__icon span:first-child {
+    transform: translateY(12px);
+}
+.toggle__icon span:last-child {
+    transform: translateY(-12px);
+}
+.toggle__icon.active {
+    left: 1em;
+}
+.toggle__icon.active span:first-child {
+    transform: translateY(0) rotate(45deg);
+}
+.toggle__icon.active span {
+    transform: rotate(-45deg);
+}
+.toggle__icon.active span:last-child {
+    transform: translateY(0);
+    visibility: hidden;
+}
+
+
 /* section button style */
 
 #addSecBtn {
-    position: absolute;
-    top: 105%;
-    left: 1em;
     font-size: 20px;
     border-radius: 10px 40px;
     background: #ff6a14;
     color: #372902;
-    padding: 0.6em 2em;
+    width: 180px;
+    text-align: center;
+    padding: 0.5em 0;
     cursor: pointer;
     z-index: 10;
     transition: all 0.5s ease;

@@ -27,7 +27,8 @@ const ul = document.querySelector("ul#navbar__list"),
       addBtn = document.querySelector("#addSecBtn"),
       main = document.querySelector("main"),
       toUp = document.querySelector("#toUp"),
-      pageHeader = document.querySelector(".page__header");
+      pageHeader = document.querySelector(".page__header"),
+      toggleIcon = document.getElementById("toggleIcon");
 
 let isScroll,
     sectionCount = 0;
@@ -86,11 +87,11 @@ function addSection() {
 // build the nav
 // building the nav list after entering the webpage
 for (let i = 1; i< 5; i++) {
-  ul.insertAdjacentHTML("beforeend", `<li><a href="#section${i}" class="menu__link">Section ${i}</a></li>`);
+  ul.insertAdjacentHTML("beforeend", `<li><a href="#section${i}" class="menu__link" data-nav="section${i}">Section ${i}</a></li>`);
 }
 // function to create <li> and putting it inside <ul> tag
 function addList() {
-  let liContent = `<li><a href="#section${sectionCount}" class="menu__link">Section ${sectionCount}</a></li>`;
+  let liContent = `<li><a href="#section${sectionCount}" class="menu__link" data-nav="section${sectionCount}">Section ${sectionCount}</a></li>`;
   // this line to add the liContent after last item inside <ul> tag
   ul.insertAdjacentHTML("beforeend", liContent);
 };
@@ -107,7 +108,7 @@ function addList() {
  * 
 */
 
-// Build menu 
+// Build menu
 // this event will execute the functions when user click on addBtn
 addBtn.addEventListener("click", () => {
   let sections = document.querySelectorAll("section");
@@ -116,6 +117,13 @@ addBtn.addEventListener("click", () => {
 });
 
 // Scroll to section on link click
+
+ul.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (e.target.dataset.nav) {
+    document.getElementById(e.target.dataset.nav).scrollIntoView({behavior: "smooth"});
+  }
+});
 
 // Set sections as active
 
@@ -132,25 +140,38 @@ window.addEventListener("scroll", () => {
   // to check while scroll the viewport of the section to add class to it to change its background
   let sections = document.querySelectorAll("section");
   sections.forEach(section => {
-    let top = window.scrollY, // scrollY value
-        height = section.offsetHeight, // the height of the section
-        offset = section.offsetTop - 250, // the space between the top and the start of the section
-        id = section.getAttribute("id");
-        if (top >= offset && top < offset + height) {
-          section.classList.add("isActive");
-          ul.querySelector(`a[href*="${id}"]`).classList.add("active");
-        }
-        else {
-          section.classList.remove("isActive");
-          ul.querySelector(`a[href*="${id}"]`).classList.remove("active");
-        }
+    // let top = window.scrollY, // scrollY value
+    //     height = section.offsetHeight, // the height of the section
+    //     offset = section.offsetTop - 250, // the space between the top and the start of the section
+    //     id = section.getAttribute("id");
+    //     if (top >= offset && top < offset + height) {
+    //       section.classList.add("isActive");
+    //       ul.querySelector(`a[href*="${id}"]`).classList.add("active");
+    //     }
+    //     else {
+    //       section.classList.remove("isActive");
+    //       ul.querySelector(`a[href*="${id}"]`).classList.remove("active");
+    //     }
+    
+    // using getBoundingClientRect() api to know which section in the viewport
+    let id = section.getAttribute("id");
+    if (section.getBoundingClientRect().top >= -400 && section.getBoundingClientRect().top <= 150) {
+      section.classList.add("isActive");
+      ul.querySelector(`a[href*="${id}"]`).classList.add("active");
+    }
+    else {
+      section.classList.remove("isActive");
+      ul.querySelector(`a[href*="${id}"]`).classList.remove("active");
+    }
   });
   // to hide the header (nav menu) while there is no scroll event
-  pageHeader.style.cssText = "transform: translateY(0)";
+  // pageHeader.style.cssText = "transform: translateY(0)";
+  pageHeader.classList.remove("hide__nav");
   clearTimeout(isScroll); // remove the timeout if scroll is running
   // timeout to hide nav if no scroll happen after 5 seconds
   isScroll = setTimeout (() => {
-    pageHeader.style.cssText = "transform: translateY(-100%)";
+    // pageHeader.style.cssText = "transform: translateY(-100%)";
+  pageHeader.classList.add("hide__nav");
   },5000) // 5000 milliseconds = 5 seconds
 });
 
@@ -158,5 +179,11 @@ window.addEventListener("scroll", () => {
 // when the user click on the button it will back to the top
 toUp.addEventListener("click", () => {
   // this will make a scroll to the top and the left of the page
-  window.scrollTo(0, 0); // scrollX = scrollY = 0
+  window.scrollTo({top: 0, left: 0, behavior: "smooth"}); // scrollX = scrollY = 0
+});
+
+// event to show the nav menu when clicking on the burger icon
+toggleIcon.addEventListener("click", () => {
+  pageHeader.classList.toggle("mobile__show");
+  toggleIcon.classList.toggle("active");
 });
